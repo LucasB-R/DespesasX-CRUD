@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: poppins, sans-serif;
+    font-weight: 700;
+    box-sizing: border-box;
+}
+body{
+    overflow: hidden;
+}
+section{
+    position:relative;
+    widows: 100%;
+    min-height: 100vh;
+    background: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section:before{
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: lightblue;
+clip-path: polygon(58% 70%, 100% 0, 100% 100%, 0% 100%);
+}
+
+
+section .conteudo{
+    position: relative;
+    padding: 100px 50px 100px 150px;
+    box-sizing: border-box;
+    animation: left-in 0.5s ease-in forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+
+}
+    
+
+section .conteudo h4{
+    color: lightblue;
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+section .conteudo p{
+    color: white;
+    font-size: 1.0em;
+}
+
+section .conteudo a{
+position: relative;
+display: inline-block;
+padding: 15px 30px;
+margin-top: 20px;
+background: lightblue;
+color: white;
+text-decoration: none;
+text-transform: uppercase;
+font-size: 0.95em;
+font-weight: 700;
+letter-spacing: 1px;
+}
+
+
+section .imgUSD{
+position: relative;
+padding-right: 100px;
+animation: right-in 0.5s ease-in forwards;
+animation-delay: 0.3s;
+opacity: 0;
+}
+
+section .imgUSD svg{
+max-width: 500px;
+    }
+    
+
+.logo{
+    position: absolute;
+    top: 75px;
+    left: 150px;
+    display: flex;
+    border: 3px solid lightblue ;
+    padding-left: 10px;
+    animation: left-in 0.5s ease-in forwards;
+    animation-delay: 0s;
+    opacity: 0;
+}
+
+.logo li{
+    list-style:none;
+}
+
+
+.logo li a{
+    text-decoration: none;
+    color: lightblue;
+    margin-right: 30px;
+    font-size: 2.0em;
+}
+
+.logo li a:hover {
+    color: white;
+}
+
+@keyframes fade-in
+
+{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes left-in
+
+{
+    0%{
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes right-in
+
+{
+    0%{
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+
+@media(max-width: 768px){
+
+    
+    .logo{
+        top: 10px;
+        left: 10px;
+    }
+    
+    section .conteudo{
+        position: absolute;
+        top: 10px;
+        padding: 180px 80px 0px 50px;
+        box-sizing: border-box;
+        z-index:1;
+    
+    }
+        
+    
+    section .conteudo h4{
+        font-size: 1.2em;
+    }
+    
+    section .conteudo p{
+        font-size: 0.9em;
+    }
+    
+        
+        section .imgUSD svg{
+        display: none;
+            } 
+    
+            section:before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: lightblue;
+                clip-path: polygon(78% 100%, 100% 0, 100% 100%, 0% 100%);
+                }
+    
+}
+

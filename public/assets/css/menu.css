@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+header{
+	position: relative;
+	max-width: 1200px;
+	margin: 20px auto;
+    padding: 10px;
+    background: #fff;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+.titulo{
+color: lightblue;
+height: 50px;
+font-size: 36px;
+line-height: 60px;
+padding: 0 20px;
+text-align: center;
+box-sizing: border-box;
+float: left;
+font-weight: 700;
+text-decoration: none;
+}
+
+.menuHead{
+
+	float: right;
+
+}
+
+.clearfix{
+	clear: both;
+}
+
+.menuHead ul{
+
+
+margin: 0;
+margin: 0;
+display: flex;
+
+
+}
+
+.menuHead ul li{
+
+list-style: none;
+
+}
+
+.menuHead ul li a{
+
+display: block;
+margin:10px 0;
+padding: 10px 20px;
+text-decoration: none;
+color: #262626;
+
+
+}
+
+.menuHead ul li a.active, .menuHead ul li a:hover{
+
+	background: lightblue;
+	color: #fff;
+	transition: 0.5s;
+
+}
+
+.pagination{
+    padding: 2px 5px 10px 30px;
+}
+
+@media (max-width: 1200px)
+{
+
+header{
+	margin: 20px;
+}
+
+}
+
+@media (max-width: 768px)
+{
+
+    li.page-item {
+
+        display: none;
+    }
+
+    .page-item:first-child,
+    .page-item:nth-child( 3 ),
+    .page-item:nth-last-child( 2 ),
+    .page-item:last-child,
+    .page-item.active,
+    .page-item.disabled {
+
+        display: block;
+    }
+.menu-T{
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin: 10px;
+	float: right;
+	cursor: pointer;
+	text-align: center;
+	font-size: 30px;
+	color: lightblue;
+}
+
+
+.menu-T:before{
+
+content: '\f0c9';
+font-family:  fontAwesome;
+line-height: 40px;
+
+
+}
+.menu-T.active:before{
+
+content: '\f00d';
+
+
+
+}
+
+.menuHead{
+
+	display: none;
+}
+
+.menuHead.active{
+
+	display: block;
+	width: 100%;
+}
+
+.menuHead.active ul{
+
+	display: block;
+}
+
+.menuHead.active ul li a{
+
+	margin: 0;
+}
+
+}
