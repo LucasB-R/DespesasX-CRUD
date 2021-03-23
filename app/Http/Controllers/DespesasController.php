@@ -141,11 +141,21 @@ Despesa Editada com sucesso! ;)
         ->where('id_usuario', Auth::user()->id)
         ->delete();
 
-        return redirect()->route('DespesasX - Inicio')->with('sucesso', 
 
-'
-Despesa deletada com sucesso! ;)
-');
+        if($despesa){
+            return redirect()->route('DespesasX - Inicio')->with('sucesso', 
+
+            '
+            Despesa deletada com sucesso! ;)
+            ');
+                
+        }else{
+            return redirect()->route('DespesasX - Inicio')->with('erro', 
+
+            '
+            Despesa Inválida
+            ');
+        }
     }
     
 
