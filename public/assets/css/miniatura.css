@@ -2,7 +2,8 @@
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
-  width:30%;
+    max-width:50px;
+    max-height:50px;
   
 }
 
