@@ -81,8 +81,11 @@ se estamos em março só aparece opçao de somar março, fevereiro e janeiro
    ```sh
    vendor\bin\phpunit
    ```
-6. Inicie o servidor!
-7. Ao criar sua conta deve ir na tabela usuários e mudar is_active para 1 e o is_admin para 1
+6. ```sh
+   php artisan storage:link
+   ```
+7. Inicie o servidor!
+8. Ao criar sua conta deve ir na tabela usuários e mudar is_active para 1 e o is_admin para 1
 
 
 
