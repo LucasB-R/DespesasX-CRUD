@@ -15,11 +15,12 @@ class Despesas extends Migration
     {
         Schema::create('despesas', function (Blueprint $table) {
 
-        $table->id();
+        $table->increments('id');
 		$table->string('descricao',50);
 		$table->string('data');
 		$table->string('anexo',510);
-		$table->integer('id_usuario');
+		$table->integer('id_usuario')->unsigned();
+        $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
 		$table->string('valor',11);
 
         });

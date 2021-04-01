@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\validaForm;
 use App\Models\Despesas;
+use App\Models\Usuario;
 
 class DespesasController extends Controller
 {
+    
     public function nova(validaForm $request)
     {
 
@@ -17,28 +18,29 @@ class DespesasController extends Controller
         $valor = str_replace(',', '.', $valor);
 
         if (is_numeric($valor)) {
-
-
-            if ($request->image) {
-                $pastaAleatoria = Auth::user()->email . rand(50000, 45405045050454); //Pasta Aleatoria para salvamento
-                $nomeoriginal = $request->file('image')->getClientOriginalName(); //Pega nome do arquivo
-                $upload = $request->file('image')->storeAs("public/" . $pastaAleatoria, $nomeoriginal);
-
-
-                $anexo = "storage/$pastaAleatoria/$nomeoriginal";
-            } else {
-                $anexo = 'Sem Anexo';
-            }
-
+  
             $despesa = new Despesas;
 
             $despesa->descricao = $request->descricao;
             $despesa->data = $request->data;
-            $despesa->anexo = $anexo;
+            $despesa->anexo = 'Sem Anexo';
             $despesa->id_usuario = Auth::user()->id;
             $despesa->valor = $valor;
             $despesa->save();
 
+            if ($request->image) {
+
+                $pasta = $despesa->id; //Pasta com ID
+                $nomeoriginal = $request->file('image')->getClientOriginalName(); //Pega nome do arquivo
+                $upload = $request->file('image')->storeAs("public/" . $pasta, $nomeoriginal);
+
+                $anexo = "storage/$pasta/$nomeoriginal";
+
+                $despesa = Despesas::where('id', $despesa->id)
+                ->where('id_usuario', Auth::user()->id)
+                ->update(['anexo' => $anexo]);
+
+            } 
 
             return redirect()->route('DespesasX - Inicio')->with('sucesso','Despesa Adicionada com sucesso! ;)');
 
@@ -49,20 +51,15 @@ class DespesasController extends Controller
         }
     }
 
+
     public function editaDespesaIndex(Request $request)
     {
 
         $id = request('id');
-        $edit = DB::select(
-            'select * from despesas where id = :id and id_usuario = :usuario',
-            [
-                ':id' => $id,
-                ':usuario' => Auth::user()->id
-            ]
-        );
+        $edit = Despesas::where('id', $id)->where('id_usuario', Auth::user()->id)->get();
 
 
-        if ($edit) {
+        if (count($edit) == 1) {
 
             return view('SistemaDespesas.edita', compact('edit', 'id'));
         } else {
@@ -84,25 +81,32 @@ class DespesasController extends Controller
         if (is_numeric($valor)) {
 
             if ($request->image) {
-                $pastaAleatoria = Auth::user()->email . rand(50000, 45405045050454); //Pasta Aleatoria para salvamento
+
+                $pasta = $id; //Pasta com ID
                 $nomeoriginal = $request->file('image')->getClientOriginalName(); //Pega nome do arquivo
-                $upload = $request->file('image')->storeAs("public/" . $pastaAleatoria, $nomeoriginal);
+                $upload = $request->file('image')->storeAs("public/" . $pasta, $nomeoriginal);
 
+                $anexo = "storage/$pasta/$nomeoriginal";
 
-                $anexo = "storage/$pastaAleatoria/$nomeoriginal";
             } else {
-                $anexo = 'Sem Anexo';
+
+                $pegarAnexoQuery = Despesas::where('id', $id)->where('id_usuario', Auth::user()->id)->get();
+
+            foreach ($pegarAnexoQuery as $pegaAnexo) {
+              
+                $anexo = $pegaAnexo->anexo;
+
             }
+        }
 
-
-            $despesa = Despesas::where('id', $id)
-                ->where('id_usuario', Auth::user()->id)
-                ->update([
+                $despesa = Despesas::where('id', $id)
+                  ->where('id_usuario', Auth::user()->id)
+                  ->update([
                     'descricao' => $request->descricao,
                     'data' => $request->data,
                     'anexo' => $anexo,
                     'valor' => $valor
-                ]);
+                  ]);
 
 
             return redirect()->route('DespesasX - Inicio')->with('sucesso','Despesa Editada com sucesso! ;)');
@@ -114,25 +118,22 @@ class DespesasController extends Controller
         }
     }
 
+
     public function delete(Request $request)
     {
 
-        $id = request('id');
+         $id = request('id');
 
-        $pegarAnexoQuery = Despesas::where('id', $id)
-            ->where('id_usuario', Auth::user()->id)
-            ->get();
+        $pegarAnexoQuery = Despesas::where('id', $id)->where('id_usuario', Auth::user()->id)->get();
 
         foreach ($pegarAnexoQuery as $pegaAnexo) {
-            if ($pegaAnexo->anexo != ('Sem Anexo')) {
+             if ($pegaAnexo->anexo != ('Sem Anexo')) {
 
                 unlink($pegaAnexo->anexo);
             }
         }
 
-        $despesa = Despesas::where('id', $id)
-            ->where('id_usuario', Auth::user()->id)
-            ->delete();
+        $despesa = Despesas::where('id', $id)->where('id_usuario', Auth::user()->id)->delete();
 
 
         if ($despesa) {
@@ -148,24 +149,8 @@ class DespesasController extends Controller
 
     public function verDespesas()
     {
-        
-        $despesas = DB::table('despesas')
-            ->join('usuarios', 'despesas.id_usuario', '=', 'usuarios.id')
-            ->select(
-                'despesas.descricao',
-                'despesas.valor',
-                'despesas.data',
-                'despesas.anexo',
-                'despesas.id'
-            )->orderBy('despesas.id', 'desc')->Paginate(5);
-
-
-
-        $temDespesa = DB::select('SELECT *
-            FROM despesas
-            WHERE id_usuario = :id', ['id' => Auth::user()->id]);
-
-        return view('SistemaDespesas.Inicio', compact('despesas', 'temDespesa'));
+        $despesas = Usuario::find(Auth::user()->id)->UsuarioDespesas()->paginate(5);
+        return view('SistemaDespesas.Inicio', compact('despesas'));
     }
 
 
@@ -173,45 +158,22 @@ class DespesasController extends Controller
     {
 
         $mes = request('data');
+        $valordespesa = Despesas::Where('data', 'like', '%' . date($mes . '/Y')) 
+        ->where('id_usuario', Auth::user()->id)
+        ->sum('valor');
 
-        $valordespesa = DB::select(
-            '
-        
-        
-            SELECT format(sum(valor),2,"de_DE") as despesa
-            FROM despesas
-            WHERE data LIKE :data
-            AND id_usuario = :id
-            ',
-
-            [
-                ':data' => '%' . date($mes . '/Y'),
-                ':id' => Auth::user()->id
-            ]
-        );
-
+     
         return view('SistemaDespesas.Anterior', compact('valordespesa'));
     }
-
 
 
     function AjaxDespesas(Request $request)
     {
         if ($request->ajax()) {
 
-
-
-            $despesas = DB::table('despesas')
-                ->join('usuarios', 'despesas.id_usuario', '=', 'usuarios.id')
-                ->select(
-                    'despesas.descricao',
-                    'despesas.valor',
-                    'despesas.data',
-                    'despesas.anexo',
-                    'despesas.id'
-                )->orderBy('despesas.data', 'desc')->Paginate(5);
-
+            $despesas = Usuario::find(Auth::user()->id)->UsuarioDespesas()->paginate(5);
             return view('SistemaDespesas.tabela', compact('despesas'));
         }
     }
+
 }

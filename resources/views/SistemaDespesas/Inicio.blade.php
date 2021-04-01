@@ -3,10 +3,6 @@
 
 @section('Conteudo')
 
-
-
- 
-
 			
 	<div class="tabelaContainer">
 
@@ -22,11 +18,12 @@
     </div>
 @endif
 
+
 <h2>Suas Despesas:</h2>
 
 
 
-@if (!$temDespesa)
+@if (count($despesas) < 1)
 
 
   <ul class="responsive-Tablenone">

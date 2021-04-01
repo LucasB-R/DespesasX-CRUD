@@ -21,4 +21,8 @@ class Usuario extends Model
         'is_active',
         'is_blocked'
     ];
+
+    public function UsuarioDespesas(){
+        return $this->hasMany(Despesas::class, 'id_usuario')->orderBy('id', 'desc');
+    }
 }

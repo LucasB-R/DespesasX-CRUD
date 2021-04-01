@@ -20,20 +20,21 @@ if (!Auth::user()->is_active ) {
 
 		<title>{{Route::getCurrentRoute()->getName()}}</title>
 
-		  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
-       <link rel="stylesheet" href="{{ asset('assets/css/form.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/form.css') }}">
 
-		  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('assets/css/miniatura.css') }}">
 		 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-		  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-		  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		  
-		    <link rel="stylesheet" href="{{ asset('assets/css/menu.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/menu.css') }}">
 
 
 
@@ -55,17 +56,14 @@ if (!Auth::user()->is_active ) {
 
 @endif
  	    <li><a href="{{Route('DespesasX - Inicio')}}" {!!Route::currentRouteName() == "DespesasX - Inicio" ? 'class="active"' : ''!!}> Minhas Despesas</a></li>
-     <li><a href="{{Route('DespesasX - Despesas anteriores')}}" {!!Route::currentRouteName() == "DespesasX - Despesas anteriores" ? 'class="active"' : ''!!}> Total das despesas</a></li>
+        <li><a href="{{Route('DespesasX - Despesas anteriores')}}" {!!Route::currentRouteName() == "DespesasX - Despesas anteriores" ? 'class="active"' : ''!!}> Total das despesas</a></li>
     	<li><a href="{{Route('DespesasX - Nova Despesa')}}" {!!Route::currentRouteName() == "DespesasX - Nova Despesa" ? 'class="active"' : ''!!}>Nova Despesa</a></li>
     
-
     </ul>
 
 
 </nav>
 <div class="clearfix"></div>
-
-
 
 </header>
 	@yield('Conteudo')
@@ -77,11 +75,13 @@ if (!Auth::user()->is_active ) {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>
 
+    <script src="{{ asset('assets/js/sweetalert.js') }}"></script>
     <script src="{{ asset('assets/js/menuealert.js') }}"></script>
     <script src="{{ asset('assets/js/mascaras.js') }}"></script>
     <script src="{{ asset('assets/js/ajax.js') }}"></script>
+	<script src="{{ asset('assets/js/confirmJs.js') }}"></script>
 
-
+   
 </body>
 </html>
 

@@ -2,26 +2,16 @@
 
 
 @section('Conteudo')
+
 <div class="totalContainer">
 
-            	@if (@$valordespesa)
-            	@foreach ($valordespesa as $despesaMesEscolhido)
-            	
-            	@if ($despesaMesEscolhido->despesa)
-            	
-            	          <h2>Total: R$ {{$despesaMesEscolhido->despesa}} </h2>
-            	@else
-            	            	<h2>Total: R$ 0,00</h2>
-            	@endif
-    
-
-
-
-            	@endforeach
-
+            	@if (isset($valordespesa))
+            
+            	          <h2>Total: R$ {{number_format($valordespesa, 2, ',', '.')}} </h2>
 
             	@endif
 </div>
+
 <form class="meuForm" action="{{Route('DespesasX - Despesas anteriores')}}" method="post">
 	@csrf
 

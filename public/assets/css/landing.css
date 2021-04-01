@@ -33,6 +33,7 @@ clip-path: polygon(58% 70%, 100% 0, 100% 100%, 0% 100%);
 
 
 section .conteudo{
+
     position: relative;
     padding: 100px 50px 100px 150px;
     box-sizing: border-box;
@@ -44,7 +45,8 @@ section .conteudo{
     
 
 section .conteudo h4{
-    color: lightblue;
+    filter: contrast(130%);
+    color: #40a6c7;
     font-size: 1.6em;
     font-weight: 600;
 }
@@ -59,7 +61,8 @@ position: relative;
 display: inline-block;
 padding: 15px 30px;
 margin-top: 20px;
-background: lightblue;
+filter: contrast(130%);
+background: #40a6c7;
 color: white;
 text-decoration: none;
 text-transform: uppercase;
@@ -83,11 +86,12 @@ max-width: 500px;
     
 
 .logo{
+    filter: contrast(130%);
     position: absolute;
     top: 75px;
     left: 150px;
     display: flex;
-    border: 3px solid lightblue ;
+    border: 3px solid #40a6c7 ;
     padding-left: 10px;
     animation: left-in 0.5s ease-in forwards;
     animation-delay: 0s;
@@ -101,7 +105,8 @@ max-width: 500px;
 
 .logo li a{
     text-decoration: none;
-    color: lightblue;
+    filter: contrast(130%);
+    color: #40a6c7;
     margin-right: 30px;
     font-size: 2.0em;
 }
