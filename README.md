@@ -66,7 +66,7 @@ se estamos em março só aparece opçao de somar março, fevereiro e janeiro
 
 1. Clone este repositório
    ```sh
-   git clone https://github.com/LucasB-R/DespesasX.git
+   git clone https://github.com/LucasB-R/DespesasX-CRUD.git
    ```
 2. Instale as dependêcias
    ```sh
